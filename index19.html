@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HACKED BY UNKNONE-HART</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rubik+Glitch&display=swap');
+
+        :root {
+            --primary-color: #ff0000;
+            --secondary-color: #000000;
+            --text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            user-select: none;
+        }
+
+        /* --- BACKGROUND VIDEO --- */
+        .bg-video {
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            z-index: -2;
+            border: none;
+            opacity: 0.55;
+        }
+
+        /* --- CRT MONITOR EFFECTS --- */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.3)
+            );
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9;
+            opacity: 0.05;
+            pointer-events: none;
+            background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif'); /* Static noise gif */
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            z-index: 20;
+            text-shadow: 4px 4px 10px black;
+        }
+
+        /* --- ADVANCED GLITCH TITLE --- */
+        .glitch-title {
+            font-family: 'Rubik Glitch', cursive;
+            font-size: 80px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-title::before, .glitch-title::after {
+            content: "HACKED BY UNKNONE_HART";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-title::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 1px); }
+            60% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, -2px); }
+            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 2px); }
+            100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, -1px); }
+        }
+
+        /* --- TERMINAL BOX FOR QUOTES --- */
+        .terminal-box {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            display: inline-block;
+            max-width: 800px;
+            min-height: 80px;
+            position: relative;
+        }
+
+        .terminal-text {
+            font-size: 20px;
+            color: #ddd;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        /* Blinking Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--primary-color);
+            animation: blink 1s infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            border-top: 2px solid var(--primary-color);
+            padding: 10px 0;
+            z-index: 30;
+            font-size: 14px;
+        }
+        
+        .footer a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
+        .footer a:hover { text-shadow: 0 0 10px white; color: white; }
+
+        /* Mobile Adjustments */
+        @media only screen and (max-width: 600px) {
+            .glitch-title { font-size: 40px; }
+            .terminal-text { font-size: 16px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND VIDEO -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="https://motionbgs.com/media/9812/nakano-nino-dark.960x540.mp4" type="video/mp4">
+    </video>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+
+    <!-- MAIN INTERFACE -->
+    <div class="container">
+        <!-- Main Title -->
+        <div class="glitch-title">HACKED BY<br>UNKNONE_HART</div>
+        
+        <br>
+        
+        <!-- Typewriter Quote Box -->
+        <div class="terminal-box">
+            <span style="color:red; font-weight:bold;">root@unknone_hart:~#</span> 
+            <span id="quote-display" class="terminal-text"></span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        PURPLE COBRA HACKER TEAM :: <a href="http://PURPULECOBRA.COM">PURPULECOBRA.COM</a>
+        <br>
+        <marquee scrollamount="12" style="color: grey; margin-top:5px;">
+            SYSTEM COMPROMISED... GREETZ TO: UNKNONE_HART ~ AND YOU ~ UPLOADING VIRUS... 99% COMPLETE...
+        </marquee>
+    </div>
+
+<script>
+    const quotes = [
+        "BEING UNKNONE_HART IS JUST A SCRIPT I RUN... BEING HAPPY IS A CODE I CANNOT CRACK.",
+        "I HAVE ROOT ACCESS TO THE WORLD... BUT PERMISSION DENIED TO MY OWN HAPPINESS.",
+        "THE WORLD FEARS UNKNONE_HART... BUT NO ONE SEES THE TEARS BEHIND THE TERMINAL.",
+        "I CAN BYPASS EVERY FIREWALL... BUT I CANNOT ESCAPE THE DARKNESS IN MY MIND.",
+        "SYSTEM COMPROMISED SUCCESSFULLY... MY SOUL: 404 NOT FOUND."
+    ];
+
+    let charIndex = 0;
+    let currentQuote = "";
+
+    function pickRandomQuote() {
+        currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        charIndex = 0;
+        document.getElementById("quote-display").innerHTML = "";
+        typeWriter();
+    }
+
+    function typeWriter() {
+        if (charIndex < currentQuote.length) {
+            document.getElementById("quote-display").innerHTML += currentQuote.charAt(charIndex);
+            charIndex++;
+            let speed = Math.floor(Math.random() * 100) + 50;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    window.addEventListener("load", pickRandomQuote);
+</script>
+
+</body>
+</html>
