@@ -1,1 +1,417 @@
 # hacked-by-unknone-hart
+
+# 💀 HACKED BY UNKNONE_HART
+
+> A glitchy hacker-terminal style webpage with rotating anime background videos, CRT scanline effects, nightcore music, and a typewriter quote generator.
+
+## ✨ Features
+
+- 🎬 **Rotating background videos** — 11 anime wallpapers cycle in order on every refresh (no repeats until all 11 play)
+- 🎵 **Background music** — *Meg & Dia – Monster* with nightcore effect (pitched up via `playbackRate` + `preservePitch`)
+- 💻 **Glitch title** — animated RGB-split glitch effect on "HACKED BY UNKNONE_HART"
+- ⌨️ **Typewriter quotes** — hacker-themed terminal-style rotating quotes with blinking cursor
+- 📺 **CRT effects** — scanline overlay for the retro monitor look
+- 📱 **Fully responsive** — works on mobile, tablets, landscape phones, and desktop (dynamic fonts, safe-area padding, `100dvh` viewport)
+
+## 🎥 Background Videos
+
+1. Crimson Butterfly Nightfall
+2. Melina Near The Burning Tree
+3. Bloodlit Blade
+4. Blue Eyes Swordswoman
+5. Platinum Arknights
+6. Rainy Anime Girls
+7. Magic Anime Girl
+8. Rainfall Samurai Girl
+9. Girl With Bamboo Hat
+10. Nakano Nino Dark
+11. Girl With Katana
+
+> All videos sourced from [motionbgs.com](https://motionbgs.com) (`.960x540.mp4` format).
+
+## 🎵 Music
+
+- **Track:** Meg & Dia – Monster
+- **Source:** [archive.org](https://archive.org/details/meg-dia-monster-lyrics)
+- **Effect:** Nightcore-style (playback speed 1.3x, pitch shifted up)
+
+> Music starts on first user interaction (click/keypress/touch) since browsers block autoplay with sound.
+
+## 🛠️ Usage
+
+1. Save the HTML file as `index.html`
+2. Open it in any modern browser
+3. Click/tap anywhere to start the music
+
+## 🔧 Customization
+
+### Change background videos
+
+Edit the `bgVideos` array in the `<script>` section:
+
+```js
+const bgVideos = [
+    "https://motionbgs.com/media/8997/crimson-butterfly-nightfall.960x540.mp4",
+    // ... add or remove video URLs here
+];
+```
+
+### Change quotes
+
+Edit the `quotes` array:
+
+```js
+const quotes = [
+    "YOUR QUOTE HERE",
+    "ANOTHER QUOTE",
+];
+```
+
+### Change music
+
+Replace the `<source>` src inside the `<audio id="bg-music">` element.
+
+## 📄 Full Source
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HACKED BY UNKNONE-HART</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rubik+Glitch&display=swap');
+
+        :root {
+            --primary-color: #ff0000;
+            --secondary-color: #000000;
+            --text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            height: 100dvh;
+            user-select: none;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            overscroll-behavior: none;
+        }
+
+        /* --- BACKGROUND VIDEO --- */
+        .bg-video {
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            z-index: -2;
+            border: none;
+            opacity: 0.55;
+            object-fit: cover;
+        }
+
+        /* --- CRT MONITOR EFFECTS --- */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.3)
+            );
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 92%;
+            max-width: 900px;
+            z-index: 20;
+            text-shadow: 4px 4px 10px black;
+            padding: 20px 0;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        /* --- ADVANCED GLITCH TITLE --- */
+        .glitch-title {
+            font-family: 'Rubik Glitch', cursive;
+            font-size: clamp(2.5rem, 10vw, 80px);
+            line-height: 1.15;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .glitch-title::before, .glitch-title::after {
+            content: "HACKED BY UNKNONE_HART";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-title::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 1px); }
+            60% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, -2px); }
+            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 2px); }
+            100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, -1px); }
+        }
+
+        /* --- TERMINAL BOX FOR QUOTES --- */
+        .terminal-box {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid var(--primary-color);
+            padding: 16px;
+            margin-top: 24px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            display: inline-block;
+            width: 100%;
+            max-width: 800px;
+            min-height: 80px;
+            position: relative;
+            text-align: left;
+        }
+
+        .terminal-text {
+            font-size: clamp(0.95rem, 4.2vw, 1.25rem);
+            color: #ddd;
+            text-align: left;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        /* Blinking Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--primary-color);
+            animation: blink 1s infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            border-top: 2px solid var(--primary-color);
+            padding: 8px 8px;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+            z-index: 30;
+            font-size: clamp(0.65rem, 3.4vw, 0.875rem);
+            line-height: 1.4;
+            overflow: hidden;
+        }
+        
+        .footer a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
+        .footer a:hover { text-shadow: 0 0 10px white; color: white; }
+
+        /* Mobile Adjustments */
+        @media only screen and (max-width: 600px) {
+            .container { width: 94%; padding: 16px 0; }
+            .terminal-box { padding: 14px; min-height: 60px; }
+            .bg-video { opacity: 0.5; }
+        }
+
+        @media only screen and (max-width: 400px) {
+            .glitch-title { font-size: clamp(1.9rem, 9.5vw, 2.5rem); }
+            .terminal-box { margin-top: 16px; }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .container { top: 45%; }
+            .glitch-title { font-size: clamp(1.6rem, 7vh, 2.8rem); }
+            .terminal-box { margin-top: 10px; min-height: 50px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .glitch-title::before, .glitch-title::after { animation: none; }
+            .cursor { animation: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND VIDEO (changes on every refresh) -->
+    <video class="bg-video" id="bg-video" autoplay muted loop playsinline></video>
+    <div class="scanlines"></div>
+
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://archive.org/download/meg-dia-monster-lyrics/Meg%20%26%20Dia-%20Monster-%20Lyrics.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MAIN INTERFACE -->
+    <div class="container">
+        <!-- Main Title -->
+        <div class="glitch-title">HACKED BY<br>UNKNONE_HART</div>
+        
+        <br>
+        
+        <!-- Typewriter Quote Box -->
+        <div class="terminal-box">
+            <span style="color:red; font-weight:bold;">root@unknone_hart:~#</span> 
+            <span id="quote-display" class="terminal-text"></span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        PURPLE COBRA HACKER TEAM :: <a href="http://PURPULECOBRA.COM">PURPULECOBRA.COM</a>
+        <br>
+        <marquee scrollamount="12" style="color: grey; margin-top:5px;">
+            SYSTEM COMPROMISED... GREETZ TO: UNKNONE_HART ~ AND YOU ~ UPLOADING VIRUS... 99% COMPLETE...
+        </marquee>
+    </div>
+
+<script>
+    const quotes = [
+        "BEING UNKNONE_HART IS JUST A SCRIPT I RUN... BEING HAPPY IS A CODE I CANNOT CRACK.",
+        "I HAVE ROOT ACCESS TO THE WORLD... BUT PERMISSION DENIED TO MY OWN HAPPINESS.",
+        "THE WORLD FEARS UNKNONE_HART... BUT NO ONE SEES THE TEARS BEHIND THE TERMINAL.",
+        "I CAN BYPASS EVERY FIREWALL... BUT I CANNOT ESCAPE THE DARKNESS IN MY MIND.",
+        "SYSTEM COMPROMISED SUCCESSFULLY... MY SOUL: 404 NOT FOUND."
+    ];
+
+    let charIndex = 0;
+    let currentQuote = "";
+
+    function pickRandomQuote() {
+        currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        charIndex = 0;
+        document.getElementById("quote-display").innerHTML = "";
+        typeWriter();
+    }
+
+    function typeWriter() {
+        if (charIndex < currentQuote.length) {
+            document.getElementById("quote-display").innerHTML += currentQuote.charAt(charIndex);
+            charIndex++;
+            let speed = Math.floor(Math.random() * 100) + 50;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    window.addEventListener("load", pickRandomQuote);
+
+    // Random background video on every refresh
+    const bgVideos = [
+        "https://motionbgs.com/media/8997/crimson-butterfly-nightfall.960x540.mp4",
+        "https://motionbgs.com/media/1549/melina-near-the-burning-tree.960x540.mp4",
+        "https://motionbgs.com/media/7875/bloodlit-blade.960x540.mp4",
+        "https://motionbgs.com/media/9933/blue-eyes-swordswoman.960x540.mp4",
+        "https://motionbgs.com/media/1885/platinum-arknights.960x540.mp4",
+        "https://motionbgs.com/media/1825/rainy-anime-girls.960x540.mp4",
+        "https://motionbgs.com/media/1824/magic-anime-girl.960x540.mp4",
+        "https://motionbgs.com/media/2639/rainfall-samurai-girl.960x540.mp4",
+        "https://motionbgs.com/media/7734/girl-with-bamboo-hat.960x540.mp4",
+        "https://motionbgs.com/media/9812/nakano-nino-dark.960x540.mp4",
+        "https://motionbgs.com/media/5868/girl-with-katana.960x540.mp4"
+    ];
+    function setNextVideo() {
+        const video = document.getElementById("bg-video");
+        let index = parseInt(localStorage.getItem("bgVideoIndex") || "0", 10);
+        if (isNaN(index) || index >= bgVideos.length) {
+            index = 0;
+        }
+        video.src = bgVideos[index];
+        index = (index + 1) % bgVideos.length;
+        localStorage.setItem("bgVideoIndex", index);
+        video.load();
+        video.play();
+    }
+    setNextVideo();
+
+    // Unlock background music on first user interaction (autoplay with sound is blocked by browsers)
+    const bgMusic = document.getElementById("bg-music");
+    bgMusic.volume = 0.9;
+    bgMusic.preservePitch = false;
+    bgMusic.playbackRate = 1.3;
+    function startMusic() {
+        bgMusic.play();
+        document.removeEventListener("click", startMusic);
+        document.removeEventListener("keydown", startMusic);
+        document.removeEventListener("touchstart", startMusic);
+        document.removeEventListener("pointerdown", startMusic);
+    }
+    document.addEventListener("click", startMusic);
+    document.addEventListener("keydown", startMusic);
+    document.addEventListener("touchstart", startMusic);
+    document.addEventListener("pointerdown", startMusic);
+</script>
+
+</body>
+</html>
+```
+
+## ⚠️ Disclaimer
+
+For educational/fun purposes only. All media belongs to their respective owners.
